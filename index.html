@@ -4,22 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#08111f">
-  <meta name="description" content="Chronosense Experience — demostrador conceptual de memoria, conexión familiar y protección personal.">
+  <meta name="description" content="Chronosense Experience: demostración conceptual de memoria, conexión familiar y protección personal.">
+  <meta name="color-scheme" content="dark">
   <title>Chronosense Experience | Family Cloud</title>
   <link rel="icon" href="assets/chronosense-logo.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#mainContent">Saltar al contenido principal</a>
   <div class="demo-banner"><span class="pulse"></span> PROTOTIPO INTERACTIVO · DATOS DE DEMOSTRACIÓN · NO ES UN SERVICIO MÉDICO NI DE EMERGENCIA</div>
   <header class="topbar">
     <a class="brand" href="#" aria-label="Chronosense inicio">
       <img src="assets/chronosense-logo.png" alt="" class="brand-logo" onerror="this.style.display='none'">
       <span>CHRONOSENSE<span class="brand-dot">.AI</span><small>EXPERIENCE</small></span>
     </a>
-    <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menú" aria-expanded="false">☰</button>
-    <nav id="mainNav">
-      <button class="nav-link active" data-view="overview">Overview</button>
-      <button class="nav-link" data-view="memories">Memories</button>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">☰</button>
+    <nav id="mainNav" aria-label="Navegación principal">
+      <button class="nav-link active" data-view="overview" aria-current="page">Resumen</button>
+      <button class="nav-link" data-view="memories">Recuerdos</button>
       <button class="nav-link" data-view="family">Family Cloud</button>
       <button class="nav-link" data-view="vault">Legacy Vault</button>
       <button class="nav-link" data-view="safety">Safety Band</button>
@@ -27,10 +29,9 @@
     </nav>
     <div class="profile"><span class="avatar">ML</span><span class="profile-name">Familia López</span><span class="chevron">⌄</span></div>
   </header>
-
-  <main class="shell">
+  <main class="shell" id="mainContent">
     <aside class="sidebar">
-      <div class="side-label">WORKSPACE</div>
+      <div class="side-label">ESPACIO FAMILIAR</div>
       <button class="side-item selected" data-view="overview"><span>◫</span> Resumen</button>
       <button class="side-item" data-view="memories"><span>▧</span> Recuerdos</button>
       <button class="side-item" data-view="family"><span>♧</span> Familia y permisos</button>
@@ -43,7 +44,6 @@
         <p class="side-note">Los datos se guardan únicamente en este navegador para esta demostración.</p>
       </div>
     </aside>
-
     <section class="content">
       <section class="view active" id="view-overview">
         <div class="welcome-row">
@@ -56,61 +56,60 @@
         </div>
         <div class="section-heading"><div><div class="eyebrow">TU ESPACIO</div><h2>Vista general</h2></div><span class="updated">Actualizado ahora · datos demo</span></div>
         <div class="stats-grid">
-          <article class="stat-card"><span class="stat-icon">▧</span><span class="stat-label">Recuerdos guardados</span><strong id="memoryCount">12</strong><small>En el archivo familiar</small></article>
-          <article class="stat-card"><span class="stat-icon">♧</span><span class="stat-label">Personas conectadas</span><strong id="familyCount">4</strong><small>Perfiles de demostración</small></article>
-          <article class="stat-card"><span class="stat-icon">◇</span><span class="stat-label">Mensajes de legado</span><strong id="legacyCount">3</strong><small>Preparados para el futuro</small></article>
+          <article class="stat-card"><span class="stat-icon">▧</span><span class="stat-label">Recuerdos guardados</span><strong id="memoryCount">6</strong><small>En el archivo de demostración</small></article>
+          <article class="stat-card"><span class="stat-icon">♧</span><span class="stat-label">Personas en el espacio</span><strong id="familyCount">4</strong><small>Perfiles de demostración</small></article>
+          <article class="stat-card"><span class="stat-icon">◇</span><span class="stat-label">Mensajes de legado</span><strong id="legacyCount">3</strong><small>Guardados en esta demostración</small></article>
           <article class="stat-card"><span class="stat-icon">⌁</span><span class="stat-label">Dispositivo</span><strong class="device-state">Concepto</strong><small>Sin conexión real</small></article>
         </div>
         <div class="two-col">
-          <article class="panel"><div class="panel-head"><div><div class="eyebrow">MEMORY TIMELINE</div><h3>Recuerdos recientes</h3></div><button class="quiet-button" data-view="memories">Ver todos →</button></div><div id="recentMemories" class="memory-list"></div></article>
+          <article class="panel"><div class="panel-head"><div><div class="eyebrow">CRONOLOGÍA DE RECUERDOS</div><h3>Recuerdos recientes</h3></div><button class="quiet-button" data-view="memories">Ver todos →</button></div><div id="recentMemories" class="memory-list"></div></article>
           <article class="panel noa-panel"><div class="panel-head"><div><div class="eyebrow">N.O.A. · CONCEPTO</div><h3>Orientación contextual</h3></div><span class="tag">DEMO</span></div><div class="noa-symbol">✳</div><p class="noa-quote">“Los lugares familiares y las historias compartidas pueden ayudar a crear momentos de conexión.”</p><small class="muted">Ejemplo de contenido contextual. No es una recomendación clínica ni una detección de estado emocional.</small><button class="outline-button" data-view="noa">Explorar N.O.A. →</button></article>
         </div>
         <div class="module-grid">
-          <button class="module-card" data-view="memories"><span class="module-icon">▧</span><b>POV Memory Capture</b><small>Capturar momentos y relatos</small><span class="module-arrow">↗</span></button>
-          <button class="module-card" data-view="family"><span class="module-icon">♧</span><b>Family Cloud</b><small>Personas, roles y permisos</small><span class="module-arrow">↗</span></button>
-          <button class="module-card" data-view="vault"><span class="module-icon">◇</span><b>Legacy Vault</b><small>Historias y mensajes futuros</small><span class="module-arrow">↗</span></button>
+          <button class="module-card" data-view="memories"><span class="module-icon">▧</span><b>POV Memory Capture</b><small>Captura conceptual de recuerdos</small><span class="module-arrow">↗</span></button>
+          <button class="module-card" data-view="family"><span class="module-icon">♧</span><b>Family Cloud</b><small>Personas, roles y permisos propuestos</small><span class="module-arrow">↗</span></button>
+          <button class="module-card" data-view="vault"><span class="module-icon">◇</span><b>Legacy Vault</b><small>Historias y mensajes personales</small><span class="module-arrow">↗</span></button>
           <button class="module-card" data-view="safety"><span class="module-icon">⌁</span><b>Smart Safety Band</b><small>Concepto de seguridad conectada</small><span class="module-arrow">↗</span></button>
-          <button class="module-card" data-view="noa"><span class="module-icon">✳</span><b>N.O.A. Anchor</b><small>Contexto y orientación asistida</small><span class="module-arrow">↗</span></button>
+          <button class="module-card" data-view="noa"><span class="module-icon">✳</span><b>N.O.A. Anchor</b><small>Orientación contextual conceptual</small><span class="module-arrow">↗</span></button>
         </div>
+        <section class="panel demo-tools" aria-labelledby="demoToolsTitle">
+          <div class="panel-head"><div><div class="eyebrow">DATOS LOCALES</div><h3 id="demoToolsTitle">Herramientas de demostración</h3></div><span class="tag">SOLO ESTE NAVEGADOR</span></div>
+          <p class="muted">Puedes descargar una copia de los datos de esta demostración o restaurar el ejemplo inicial. La exportación se guarda en tu dispositivo; no es una copia de seguridad en la nube.</p>
+          <div class="safety-actions"><button class="outline-button" id="exportDemoData">Exportar datos JSON</button><button class="quiet-button" id="resetDemoData">Restablecer demostración</button></div>
+        </section>
       </section>
-
       <section class="view" id="view-memories">
-        <div class="page-title"><div class="eyebrow">01 / POV MEMORY CAPTURE</div><h1>Recuerdos</h1><p class="muted">Un archivo vivo de momentos, voces, fotografías e historias personales.</p></div>
-        <div class="toolbar"><div class="filter-tabs"><button class="filter active" data-filter="Todos">Todos</button><button class="filter" data-filter="Fotografía">Fotografías</button><button class="filter" data-filter="Audio">Audio</button><button class="filter" data-filter="Historia">Historias</button></div><button class="primary" data-action="new-memory">＋ Nuevo recuerdo</button></div>
-        <div class="memory-grid" id="memoryGrid"></div>
-        <div class="info-strip"><span>ⓘ</span><p>En este prototipo, los recuerdos son datos de ejemplo o entradas creadas localmente. No se graba audio ni vídeo desde el dispositivo.</p></div>
+        <div class="page-title"><div class="eyebrow">01 / POV MEMORY CAPTURE</div><h1>Recuerdos</h1><p class="muted">Un archivo de momentos, voces e historias personales. En esta versión, las entradas son textos de demostración; no se capturan archivos multimedia.</p></div>
+        <div class="toolbar"><div class="filter-tabs" role="group" aria-label="Filtrar recuerdos"><button class="filter active" data-filter="Todos" aria-pressed="true">Todos</button><button class="filter" data-filter="Fotografía" aria-pressed="false">Fotografías</button><button class="filter" data-filter="Audio" aria-pressed="false">Audio</button><button class="filter" data-filter="Historia" aria-pressed="false">Historias</button></div><button class="primary" data-action="new-memory">＋ Nuevo recuerdo</button></div>
+        <div class="memory-grid" id="memoryGrid" aria-live="polite"></div>
+        <div class="info-strip"><span>ⓘ</span><p>Los tipos fotografía y audio son etiquetas descriptivas. Este prototipo no accede a la cámara, el micrófono ni a la galería del dispositivo.</p></div>
       </section>
-
       <section class="view" id="view-family">
-        <div class="page-title"><div class="eyebrow">02 / FAMILY CLOUD</div><h1>Familia y conexiones</h1><p class="muted">Un espacio compartido para organizar la participación familiar y los permisos.</p></div>
-        <div class="family-layout"><article class="panel"><div class="panel-head"><div><div class="eyebrow">FAMILY CIRCLE</div><h3>Miembros del espacio</h3></div><button class="primary small" data-action="add-member">＋ Añadir</button></div><div id="familyList" class="family-list"></div></article><article class="panel permission-panel"><div class="eyebrow">MODELO DE PERMISOS</div><h3>Control y consentimiento</h3><p class="muted">La propuesta contempla permisos granulares, revocables y vinculados a cada persona.</p><div class="permission-row"><span>Ver recuerdos compartidos</span><b>Configurado por la familia</b></div><div class="permission-row"><span>Crear nuevos recuerdos</span><b>Según autorización</b></div><div class="permission-row"><span>Acceder al Legacy Vault</span><b>Permiso específico</b></div><div class="permission-note">La gestión real de identidad, consentimiento, autenticación y acceso requiere desarrollo y revisión legal.</div></article></div>
+        <div class="page-title"><div class="eyebrow">02 / FAMILY CLOUD</div><h1>Familia y conexiones</h1><p class="muted">Un espacio conceptual para organizar la participación familiar y definir cómo podrían gestionarse los permisos.</p></div>
+        <div class="family-layout"><article class="panel"><div class="panel-head"><div><div class="eyebrow">CÍRCULO FAMILIAR</div><h3>Miembros del espacio</h3></div><button class="primary small" data-action="add-member">＋ Añadir</button></div><div id="familyList" class="family-list"></div></article><article class="panel permission-panel"><div class="eyebrow">MODELO DE PERMISOS</div><h3>Control y consentimiento</h3><p class="muted">La propuesta contempla permisos granulares, revocables y vinculados a cada persona.</p><div class="permission-row"><span>Ver recuerdos compartidos</span><b>Propuesta conceptual</b></div><div class="permission-row"><span>Crear nuevos recuerdos</span><b>Según autorización</b></div><div class="permission-row"><span>Acceder al Legacy Vault</span><b>Permiso específico propuesto</b></div><div class="permission-note">Esta demostración no aplica controles de acceso. La identidad, el consentimiento y los permisos reales requieren desarrollo y revisión legal.</div></article></div>
       </section>
-
       <section class="view" id="view-vault">
         <div class="page-title"><div class="eyebrow">03 / LEGACY VAULT</div><h1>Legacy Vault</h1><p class="muted">Historias, mensajes y recuerdos que una persona decide conservar y compartir.</p></div>
-        <div class="vault-hero"><div><div class="eyebrow mint">PERSONAL LEGACY</div><h2>Lo que somos también vive<br>en las historias que contamos.</h2><p>Un archivo personal para preservar relatos, aprendizajes, fotografías y mensajes destinados a personas importantes.</p></div><div class="vault-mark">◇</div></div>
+        <div class="vault-hero"><div><div class="eyebrow mint">LEGADO PERSONAL</div><h2>Lo que somos también vive<br>en las historias que contamos.</h2><p>Un archivo personal para preservar relatos, aprendizajes y mensajes destinados a personas importantes.</p></div><div class="vault-mark">◇</div></div>
         <div class="section-heading"><div><div class="eyebrow">ARCHIVO PERSONAL</div><h2>Mensajes guardados</h2></div><button class="primary" data-action="new-legacy">＋ Crear mensaje</button></div>
         <div id="legacyList" class="legacy-list"></div>
-        <div class="info-strip"><span>ⓘ</span><p>Los mensajes de este prototipo no se entregan automáticamente ni tienen programación temporal real.</p></div>
+        <div class="info-strip"><span>ⓘ</span><p>Los mensajes se guardan localmente. No existe entrega automática, programación temporal ni acceso compartido.</p></div>
       </section>
-
       <section class="view" id="view-safety">
         <div class="page-title"><div class="eyebrow">04 / SMART SAFETY BAND</div><h1>Protección personal</h1><p class="muted">Concepto de wearable para facilitar localización, contacto y solicitud de ayuda.</p></div>
-        <div class="safety-layout"><article class="device-card"><div class="device-glow"></div><div class="band-render"><div class="band-screen"><span>CHRONO</span><b>09:41</b><small>● DEMO</small></div></div><div class="device-caption">SMART SAFETY BAND <span>CONCEPTO DE PRODUCTO</span></div></article><article class="panel safety-details"><div class="panel-head"><div><div class="eyebrow">ESTADO DEL DISPOSITIVO</div><h3>Simulación de funciones</h3></div><span class="tag">NO CONECTADO</span></div><div class="device-status"><span class="status-dot amber"></span><div><b>Dispositivo no vinculado</b><small>Sin GPS, SIM ni sensores activos</small></div></div><div class="safety-actions"><button class="outline-button" id="simulateLocation">Simular ubicación</button><button class="outline-button" id="simulateSOS">Simular solicitud SOS</button></div><div id="safetyFeedback" class="feedback">Las acciones de esta pantalla son demostrativas. No contactan con servicios de emergencia ni comparten una ubicación real.</div><div class="feature-list"><div>✓ Geovallas configurables <small>Función propuesta</small></div><div>✓ QR de emergencia <small>Función propuesta</small></div><div>✓ Solicitud de ayuda <small>Función propuesta</small></div><div>✓ Estado de batería <small>Requiere hardware</small></div></div></article></div>
+        <div class="safety-layout"><article class="device-card"><div class="device-glow"></div><div class="band-render"><div class="band-screen"><span>CHRONO</span><b>09:41</b><small>● DEMO</small></div></div><div class="device-caption">SMART SAFETY BAND <span>CONCEPTO DE PRODUCTO</span></div></article><article class="panel safety-details"><div class="panel-head"><div><div class="eyebrow">ESTADO DEL DISPOSITIVO</div><h3>Simulación de funciones</h3></div><span class="tag">NO CONECTADO</span></div><div class="device-status"><span class="status-dot amber"></span><div><b>Dispositivo no vinculado</b><small>Sin GPS, SIM ni sensores activos</small></div></div><div class="safety-actions"><button class="outline-button" id="simulateLocation">Simular ubicación</button><button class="outline-button" id="simulateSOS">Simular solicitud SOS</button></div><div id="safetyFeedback" class="feedback" role="status" aria-live="polite">Las acciones de esta pantalla son demostrativas. No contactan con servicios de emergencia ni comparten una ubicación real.</div><div class="feature-list"><div>✓ Geovallas configurables <small>Función propuesta</small></div><div>✓ QR de emergencia <small>Función propuesta</small></div><div>✓ Solicitud de ayuda <small>Función propuesta</small></div><div>✓ Estado de batería <small>Requiere hardware</small></div></div></article></div>
       </section>
-
       <section class="view" id="view-noa">
-        <div class="page-title"><div class="eyebrow">05 / NEURAL ORIENTING ANCHOR</div><h1>N.O.A. Engine</h1><p class="muted">Una propuesta de capa contextual que conecta información personal autorizada con experiencias de orientación.</p></div>
-        <div class="noa-layout"><article class="noa-visual"><div class="noa-large">✳</div><div class="noa-orbit orbit-a"></div><div class="noa-orbit orbit-b"></div><span class="noa-visual-label">CONTEXT · MEMORY · CONSENT</span></article><article class="panel"><div class="eyebrow">EXPERIENCIA DEMOSTRATIVA</div><h3>Explorar un recuerdo contextual</h3><p class="muted">Selecciona un contexto de ejemplo para ver cómo podría presentarse un recuerdo autorizado.</p><label class="field-label" for="contextSelect">Contexto de ejemplo</label><select id="contextSelect"><option value="music">Música familiar</option><option value="place">Lugar conocido</option><option value="person">Persona importante</option></select><div id="noaResult" class="noa-result"><b>Recuerdo sugerido · Música familiar</b><p>“Esta canción sonaba a menudo en las reuniones familiares de verano.”</p><small>Contenido ficticio de demostración.</small></div><button class="primary" id="showContext">Mostrar ejemplo contextual</button></article></div>
+        <div class="page-title"><div class="eyebrow">05 / NEURAL ORIENTING ANCHOR</div><h1>N.O.A. Engine</h1><p class="muted">Una propuesta de capa contextual que podría conectar información personal autorizada con experiencias de orientación.</p></div>
+        <div class="noa-layout"><article class="noa-visual"><div class="noa-large">✳</div><div class="noa-orbit orbit-a"></div><div class="noa-orbit orbit-b"></div><span class="noa-visual-label">CONTEXTO · MEMORIA · CONSENTIMIENTO</span></article><article class="panel"><div class="eyebrow">EXPERIENCIA DEMOSTRATIVA</div><h3>Explorar un recuerdo contextual</h3><p class="muted">Selecciona un contexto de ejemplo para ver cómo podría presentarse un recuerdo autorizado. La coincidencia se simula localmente con palabras clave.</p><label class="field-label" for="contextSelect">Contexto de ejemplo</label><select id="contextSelect"><option value="music">Música familiar</option><option value="place">Lugar conocido</option><option value="person">Persona importante</option></select><div id="noaResult" class="noa-result" aria-live="polite"><b>Recuerdo sugerido · Música familiar</b><p>“Esta canción sonaba a menudo en las reuniones familiares de verano.”</p><small>Contenido ficticio de demostración.</small></div><button class="primary" id="showContext">Mostrar ejemplo contextual</button></article></div>
         <div class="info-strip"><span>ⓘ</span><p>N.O.A. es una propuesta conceptual. No diagnostica, no detecta ansiedad o desorientación y no sustituye a cuidadores ni profesionales sanitarios.</p></div>
       </section>
-      <footer><span>CHRONOSENSE<span class="brand-dot">.AI</span> · EXPERIENCE</span><span>Concept prototype · 2026 · Not a medical or emergency service</span></footer>
+      <footer><span>CHRONOSENSE<span class="brand-dot">.AI</span> · EXPERIENCE</span><span>Prototipo conceptual · 2026 · No es un servicio médico ni de emergencia</span></footer>
     </section>
   </main>
-
-  <dialog id="memoryDialog" class="modal"><form method="dialog" id="memoryForm"><div class="modal-head"><div><div class="eyebrow">POV MEMORY CAPTURE</div><h2>Añadir recuerdo</h2></div><button class="close" aria-label="Cerrar">×</button></div><label class="field-label">Título<input id="memoryTitle" required maxlength="70" placeholder="Ej. Una tarde junto al mar"></label><label class="field-label">Tipo<select id="memoryType"><option>Fotografía</option><option>Audio</option><option>Historia</option></select></label><label class="field-label">Fecha<input id="memoryDate" type="date"></label><label class="field-label">Descripción<textarea id="memoryDescription" rows="3" placeholder="Escribe el recuerdo..."></textarea></label><div class="modal-actions"><button class="quiet-button" value="cancel">Cancelar</button><button class="primary" id="saveMemory" value="default">Guardar en esta demo</button></div></form></dialog>
-  <dialog id="legacyDialog" class="modal"><form method="dialog" id="legacyForm"><div class="modal-head"><div><div class="eyebrow">LEGACY VAULT</div><h2>Crear mensaje</h2></div><button class="close" aria-label="Cerrar">×</button></div><label class="field-label">Título<input id="legacyTitle" required maxlength="70" placeholder="Ej. Para cuando lo necesites"></label><label class="field-label">Destinatario<input id="legacyTo" maxlength="60" placeholder="Ej. Mi familia"></label><label class="field-label">Mensaje<textarea id="legacyMessage" rows="4" required placeholder="Escribe tu mensaje..."></textarea></label><div class="modal-actions"><button class="quiet-button" value="cancel">Cancelar</button><button class="primary" id="saveLegacy" value="default">Guardar en esta demo</button></div></form></dialog>
-  <dialog id="memberDialog" class="modal"><form method="dialog" id="memberForm"><div class="modal-head"><div><div class="eyebrow">FAMILY CLOUD</div><h2>Añadir miembro</h2></div><button class="close" aria-label="Cerrar">×</button></div><label class="field-label">Nombre<input id="memberName" required maxlength="50" placeholder="Nombre de la persona"></label><label class="field-label">Relación<select id="memberRole"><option>Familiar</option><option>Cuidador autorizado</option><option>Administrador</option></select></label><div class="modal-actions"><button class="quiet-button" value="cancel">Cancelar</button><button class="primary" id="saveMember" value="default">Añadir a la demo</button></div></form></dialog>
+  <dialog id="memoryDialog" class="modal"><form method="dialog" id="memoryForm"><div class="modal-head"><div><div class="eyebrow">POV MEMORY CAPTURE</div><h2>Añadir recuerdo</h2></div><button class="close" aria-label="Cerrar">×</button></div><label class="field-label" for="memoryTitle">Título<input id="memoryTitle" required maxlength="70" placeholder="Ej. Una tarde junto al mar"></label><label class="field-label" for="memoryType">Tipo<select id="memoryType"><option>Fotografía</option><option>Audio</option><option>Historia</option></select></label><label class="field-label" for="memoryDate">Fecha<input id="memoryDate" type="date"></label><label class="field-label" for="memoryDescription">Descripción<textarea id="memoryDescription" rows="3" placeholder="Escribe el recuerdo..."></textarea></label><div class="modal-actions"><button class="quiet-button" value="cancel">Cancelar</button><button class="primary" id="saveMemory" value="default">Guardar en esta demo</button></div></form></dialog>
+  <dialog id="legacyDialog" class="modal"><form method="dialog" id="legacyForm"><div class="modal-head"><div><div class="eyebrow">LEGACY VAULT</div><h2>Crear mensaje</h2></div><button class="close" aria-label="Cerrar">×</button></div><label class="field-label" for="legacyTitle">Título<input id="legacyTitle" required maxlength="70" placeholder="Ej. Para cuando lo necesites"></label><label class="field-label" for="legacyTo">Destinatario<input id="legacyTo" maxlength="60" placeholder="Ej. Mi familia"></label><label class="field-label" for="legacyMessage">Mensaje<textarea id="legacyMessage" rows="4" required placeholder="Escribe tu mensaje..."></textarea></label><div class="modal-actions"><button class="quiet-button" value="cancel">Cancelar</button><button class="primary" id="saveLegacy" value="default">Guardar en esta demo</button></div></form></dialog>
+  <dialog id="memberDialog" class="modal"><form method="dialog" id="memberForm"><div class="modal-head"><div><div class="eyebrow">FAMILY CLOUD</div><h2>Añadir miembro</h2></div><button class="close" aria-label="Cerrar">×</button></div><label class="field-label" for="memberName">Nombre<input id="memberName" required maxlength="50" placeholder="Nombre de la persona"></label><label class="field-label" for="memberRole">Relación<select id="memberRole"><option>Familiar</option><option>Cuidador autorizado</option><option>Administrador</option></select></label><div class="modal-actions"><button class="quiet-button" value="cancel">Cancelar</button><button class="primary" id="saveMember" value="default">Añadir a la demo</button></div></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
