@@ -62,6 +62,11 @@ function persist() {
     return false;
   }
 }
+function todayLocal() {
+  const now = new Date();
+  const offset = now.getTimezoneOffset() * 60000;
+  return new Date(now.getTime() - offset).toISOString().slice(0, 10);
+}
 function dateFmt(value) {
   if (!value) return "Sin fecha";
   const date = new Date(`${value}T12:00:00`);
@@ -72,6 +77,7 @@ function showView(name) {
   $$("[data-view]").forEach(button => {
     const active = button.dataset.view === name;
     button.classList.toggle("active", active);
+    if (button.matches(".side-item")) button.classList.toggle("selected", active);
     if (button.matches(".nav-link")) {
       if (active) button.setAttribute("aria-current", "page");
       else button.removeAttribute("aria-current");
@@ -140,7 +146,7 @@ $("#memoryForm").addEventListener("submit", event => {
   const title = $("#memoryTitle").value.trim();
   if (!title) return $("#memoryTitle").focus();
   const type = $("#memoryType").value;
-  memories.unshift({ title, type, date: $("#memoryDate").value || new Date().toISOString().slice(0, 10), desc: $("#memoryDescription").value.trim(), icon: { "Fotografía": "◉", "Audio": "♫", "Historia": "✎" }[type] });
+  memories.unshift({ title, type, date: $("#memoryDate").value || todayLocal(), desc: $("#memoryDescription").value.trim(), icon: { "Fotografía": "◉", "Audio": "♫", "Historia": "✎" }[type] });
   if (!persist()) { memories.shift(); return; }
   $("#memoryDialog").close(); event.target.reset(); renderMemories(activeFilter()); renderOverview(); toast("Recuerdo añadido y guardado en este navegador.");
 });
@@ -150,7 +156,7 @@ $("#legacyForm").addEventListener("submit", event => {
   const title = $("#legacyTitle").value.trim();
   const message = $("#legacyMessage").value.trim();
   if (!title || !message) return;
-  legacy.unshift({ title, to: $("#legacyTo").value.trim(), message, date: new Date().toISOString().slice(0, 10) });
+  legacy.unshift({ title, to: $("#legacyTo").value.trim(), message, date: todayLocal() });
   if (!persist()) { legacy.shift(); return; }
   $("#legacyDialog").close(); event.target.reset(); renderLegacy(); renderOverview(); toast("Mensaje guardado en este navegador.");
 });
@@ -193,7 +199,7 @@ $("#exportDemoData")?.addEventListener("click", () => {
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.href = url; link.download = `chronosense-demo-${new Date().toISOString().slice(0, 10)}.json`;
+  link.href = url; link.download = `chronosense-demo-${todayLocal()}.json`;
   document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
   toast("Exportación JSON preparada.");
 });
