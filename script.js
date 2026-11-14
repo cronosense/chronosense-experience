@@ -1,0 +1,38 @@
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const seedMemories = [
+ {title:"Una tarde junto al mar",type:"Fotografía",date:"2026-10-12",desc:"Un paseo tranquilo por la costa y una conversación que merece conservarse.",icon:"◉"},
+ {title:"La canción de los domingos",type:"Audio",date:"2026-09-28",desc:"Una melodía que acompañaba las reuniones familiares.",icon:"♫"},
+ {title:"La receta de la abuela",type:"Historia",date:"2026-09-16",desc:"Un relato familiar sobre una receta que pasó de generación en generación.",icon:"✎"},
+ {title:"Nuestro primer viaje",type:"Fotografía",date:"2026-08-04",desc:"Un recuerdo de aquel viaje en el que todos estuvimos juntos.",icon:"⌖"},
+ {title:"Consejo para el futuro",type:"Historia",date:"2026-07-21",desc:"Una reflexión personal para compartir con la familia.",icon:"✧"},
+ {title:"Voces queridas",type:"Audio",date:"2026-06-02",desc:"Un ejemplo de archivo de voz familiar.",icon:"♫"}
+];
+const seedFamily=[{name:"María López",role:"Administradora",initials:"ML"},{name:"Carlos López",role:"Familiar",initials:"CL"},{name:"Ana López",role:"Familiar",initials:"AL"},{name:"Elena Ruiz",role:"Cuidador autorizado",initials:"ER"}];
+const seedLegacy=[{title:"Para los días difíciles",to:"Mi familia",message:"Recordad que los pequeños momentos compartidos son los que construyen una vida.",date:"2026-09-10"},{title:"Nuestra historia",to:"A las próximas generaciones",message:"Quiero que conozcáis las historias que nos trajeron hasta aquí.",date:"2026-08-18"},{title:"Un mensaje de cariño",to:"Mis seres queridos",message:"Gracias por estar cerca y cuidar los vínculos que nos unen.",date:"2026-07-02"}];
+function load(key,fallback){try{return JSON.parse(localStorage.getItem("chrono_"+key))||fallback}catch{return fallback}}
+let memories=load("memories",seedMemories), family=load("family",seedFamily), legacy=load("legacy",seedLegacy);
+function save(){localStorage.setItem("chrono_memories",JSON.stringify(memories));localStorage.setItem("chrono_family",JSON.stringify(family));localStorage.setItem("chrono_legacy",JSON.stringify(legacy))}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
+function showView(name){$$(".view").forEach(v=>v.classList.toggle("active",v.id==="view-"+name));$$("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===name));$("#mainNav").classList.remove("open");$("#mobileMenu").setAttribute("aria-expanded","false");window.scrollTo({top:0,behavior:"smooth"});if(name==="overview")renderOverview()}
+$$("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+$("#mobileMenu").addEventListener("click",()=>{let open=$("#mainNav").classList.toggle("open");$("#mobileMenu").setAttribute("aria-expanded",String(open))});
+function dateFmt(d){if(!d)return"Sin fecha";let x=new Date(d+"T12:00:00");return isNaN(x)?"Sin fecha":x.toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"})}
+function renderOverview(){ $("#memoryCount").textContent=12+Math.max(0,memories.length-seedMemories.length);$("#familyCount").textContent=family.length;$("#legacyCount").textContent=legacy.length;$("#recentMemories").innerHTML=memories.slice(0,3).map(m=>`<div class="memory-row"><div class="memory-thumb">${m.icon||"✧"}</div><div><b>${esc(m.title)}</b><small>${esc(m.type)} · ${dateFmt(m.date)}</small></div></div>`).join("")}
+function renderMemories(filter="Todos"){const list=filter==="Todos"?memories:memories.filter(m=>m.type===filter);$("#memoryGrid").innerHTML=list.map(m=>`<article class="memory-card"><div class="memory-art">${m.icon||"✧"}</div><div class="memory-card-body"><h3>${esc(m.title)}</h3><p>${esc(m.desc||"Recuerdo familiar guardado en esta demostración.")}</p><div class="memory-meta"><span>${esc(m.type)}</span><span>${dateFmt(m.date)}</span></div></div></article>`).join("")||'<p class="muted">No hay recuerdos en esta categoría.</p>'}
+function renderFamily(){$("#familyList").innerHTML=family.map(m=>`<div class="family-member"><div class="member-avatar">${esc(m.initials||m.name.slice(0,2).toUpperCase())}</div><div class="member-info"><b>${esc(m.name)}</b><small>${esc(m.role)}</small></div><span class="member-access">Perfil demo</span></div>`).join("")}
+function renderLegacy(){$("#legacyList").innerHTML=legacy.map(m=>`<article class="legacy-card"><div class="legacy-icon">◇</div><h3>${esc(m.title)}</h3><p>${esc(m.message)}</p><small>Para: ${esc(m.to||"Sin destinatario")} · ${dateFmt(m.date)}</small></article>`).join("")}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+$$(".filter").forEach(b=>b.addEventListener("click",()=>{$$(".filter").forEach(x=>x.classList.toggle("active",x===b));renderMemories(b.dataset.filter)}));
+function openDialog(id){$("#"+id).showModal()}
+$$('[data-action="new-memory"]').forEach(b=>b.addEventListener("click",()=>openDialog("memoryDialog")));
+$$('[data-action="new-legacy"]').forEach(b=>b.addEventListener("click",()=>openDialog("legacyDialog")));
+$$('[data-action="add-member"]').forEach(b=>b.addEventListener("click",()=>openDialog("memberDialog")));
+$("#memoryForm").addEventListener("submit",e=>{if(e.submitter?.id!=="saveMemory")return;e.preventDefault();memories.unshift({title:$("#memoryTitle").value.trim(),type:$("#memoryType").value,date:$("#memoryDate").value||new Date().toISOString().slice(0,10),desc:$("#memoryDescription").value.trim(),icon:{"Fotografía":"◉","Audio":"♫","Historia":"✎"}[$("#memoryType").value]});save();$("#memoryDialog").close();e.target.reset();renderMemories();renderOverview();toast("Recuerdo añadido a esta demostración")});
+$("#legacyForm").addEventListener("submit",e=>{if(e.submitter?.id!=="saveLegacy")return;e.preventDefault();legacy.unshift({title:$("#legacyTitle").value.trim(),to:$("#legacyTo").value.trim(),message:$("#legacyMessage").value.trim(),date:new Date().toISOString().slice(0,10)});save();$("#legacyDialog").close();e.target.reset();renderLegacy();renderOverview();toast("Mensaje guardado en esta demostración")});
+$("#memberForm").addEventListener("submit",e=>{if(e.submitter?.id!=="saveMember")return;e.preventDefault();let name=$("#memberName").value.trim();family.push({name,role:$("#memberRole").value,initials:name.split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase()});save();$("#memberDialog").close();e.target.reset();renderFamily();renderOverview();toast("Perfil añadido a esta demostración")});
+$("#simulateLocation").addEventListener("click",()=>{$("#safetyFeedback").textContent="Ubicación simulada: Parque familiar · Punto de referencia ficticio · No se ha utilizado GPS.";toast("Simulación de ubicación mostrada")});
+$("#simulateSOS").addEventListener("click",()=>{$("#safetyFeedback").textContent="SIMULACIÓN SOS: se mostraría una solicitud de ayuda a los contactos autorizados. No se ha enviado ninguna alerta real.";toast("Simulación SOS · No se ha contactado con emergencias")});
+$("#showContext").addEventListener("click",()=>{const examples={music:["Música familiar","“Esta canción sonaba a menudo en las reuniones familiares de verano.”"],place:["Lugar conocido","“En este paseo solíamos detenernos para mirar el mar y conversar.”"],person:["Persona importante","“Esta persona forma parte de tus recuerdos familiares más queridos.”"]};let x=examples[$("#contextSelect").value];$("#noaResult").innerHTML=`<b>Recuerdo sugerido · ${x[0]}</b><p>${x[1]}</p><small>Contenido ficticio de demostración. Requiere autorización y contexto verificado en un producto real.</small>`});
+function renderAll(){renderOverview();renderMemories();renderFamily();renderLegacy()}
+renderAll();
